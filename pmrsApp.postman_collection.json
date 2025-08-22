@@ -190,6 +190,76 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getPaginatedProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/paginated?page=0&size=2&sort=productName,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "productName,asc"
+								},
+								{
+									"key": "sort",
+									"value": "productName,desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								"active"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "productName,desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
