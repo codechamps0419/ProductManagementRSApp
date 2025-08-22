@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application xmlns="http://wadl.dev.java.net/2009/02">
+    <doc xmlns:xlink="http://www.w3.org/1999/xlink" title="Product Management API"/>
+    <resources base="http://localhost:8080/api/products">
+        
+        <resource>
+            
+            <method id="createProduct" name="POST">
+                <doc title="Create a new product."/>
+                <request>
+                    <doc title="The new product data."/>
+                    <representation mediaType="application/json">
+                        <doc title="JSON representation of a Product object."/>
+                    </representation>
+                    <representation mediaType="application/xml">
+                        <doc title="XML representation of a Product object."/>
+                    </representation>
+                </request>
+                <response status="200">
+                    <doc title="Product created successfully."/>
+                    <representation mediaType="application/json">
+                        <doc title="Returns the newly created Product object."/>
+                    </representation>
+                    <representation mediaType="application/xml">
+                        <doc title="Returns the newly created Product object."/>
+                    </representation>
+                </response>
+                <response status="400">
+                    <doc title="Bad Request. Invalid product data."/>
+                </response>
+            </method>
+
+            <method id="getAllProducts" name="GET">
+                <doc title="Get all products."/>
+                <response status="200">
+                    <doc title="A list of all products."/>
+                    <representation mediaType="application/json">
+                        <doc title="Returns a JSON array of Product objects."/>
+                    </representation>
+                    <representation mediaType="application/xml">
+                        <doc title="Returns an XML list of Product objects."/>
+                    </representation>
+                </response>
+                <response status="500">
+                    <doc title="Internal server error."/>
+                </response>
+            </method>
+        </resource>
+
+        <resource path="/{id}">
+            <param name="id" style="template" type="xsd:long">
+                <doc title="The unique ID of the product."/>
+            </param>
+            
+            <method id="getProductById" name="GET">
+                <doc title="Get a product by its ID."/>
+                <request/>
+                <response status="200">
+                    <doc title="Product found and returned."/>
+                    <representation mediaType="application/json"/>
+                    <representation mediaType="application/xml"/>
+                </response>
+                <response status="404">
+                    <doc title="Product not found for the given ID."/>
+                </response>
+            </method>
+
+            <method id="updateProduct" name="PUT">
+                <doc title="Update an existing product."/>
+                <request>
+                    <doc title="The complete product data to update with."/>
+                    <representation mediaType="application/json"/>
+                    <representation mediaType="application/xml"/>
+                </request>
+                <response status="200">
+                    <doc title="Product updated successfully."/>
+                    <representation mediaType="application/json"/>
+                    <representation mediaType="application/xml"/>
+                </response>
+                <response status="404">
+                    <doc title="Product not found for the given ID."/>
+                </response>
+                <response status="400">
+                    <doc title="Bad Request. Invalid product data."/>
+                </response>
+            </method>
+
+            <method id="deleteProduct" name="DELETE">
+                <doc title="Delete a product by its ID."/>
+                <request/>
+                <response status="200">
+                    <doc title="Product deleted successfully."/>
+                </response>
+                <response status="404">
+                    <doc title="Product not found for the given ID."/>
+                </response>
+            </method>
+        </resource>
+
+        <resource path="/search">
+            <method id="searchProducts" name="GET">
+                <doc title="Search for products by name."/>
+                <request>
+                    <param name="name" style="query" type="xsd:string" required="true">
+                        <doc title="The product name to search for (case-insensitive)." />
+                    </param>
+                </request>
+                <response status="200">
+                    <doc title="Returns a list of products matching the search criteria."/>
+                    <representation mediaType="application/json"/>
+                    <representation mediaType="application/xml"/>
+                </response>
+            </method>
+        </resource>
+        
+        <resource path="/products/paginated">
+            <method id="getProductsPaginated" name="GET">
+                <doc title="Get a paginated and sortable list of products." />
+                <request>
+                    <param name="page" style="query" type="xsd:int" default="0">
+                        <doc title="The page number to retrieve (0-indexed)." />
+                    </param>
+                    <param name="size" style="query" type="xsd:int" default="10">
+                        <doc title="The number of items per page." />
+                    </param>
+                    <param name="sort" style="query" type="xsd:string">
+                        <doc title="Sorting criteria in the format: property,(asc|desc). Default sort is by productName in ascending order. Multiple sort criteria can be specified." />
+                    </param>
+                </request>
+                <response status="200">
+                    <doc title="Successful retrieval of a page of products." />
+                    <representation mediaType="application/json">
+                        <doc title="A JSON object containing the paginated product list." />
+                    </representation>
+                </response>
+                <response status="400">
+                    <doc title="Bad Request: Invalid query parameters." />
+                </response>
+            </method>
+        </resource>
+        
+    </resources>
+</application>

@@ -7,5 +7,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+	
     List<Product> findByProductNameContainingIgnoreCase(String productName);
+    
+    // The findAll(Pageable) method is inherited. No need to add a new method signature here.
+
 }

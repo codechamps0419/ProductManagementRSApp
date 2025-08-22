@@ -8,6 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
+/**
+ * @author : codechamps0419
+ */
+
 @Component
 public class DataInitializer implements CommandLineRunner {
     private final ProductRepository productRepository;
@@ -21,41 +25,47 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (CdProdTpRepository.count() == 0) {
-            CdProdTp electronicsType = new CdProdTp();
-            electronicsType.setProductTypeName("Electronics");
-            electronicsType.setProductDescription("Electronic gadgets and devices");
-            CdProdTpRepository.save(electronicsType);
+            CdProdTp cdProdTp1 = new CdProdTp();
+            cdProdTp1.setProductTypeName("Test Product");
+            cdProdTp1.setProductDescription("Test Product");
+            CdProdTpRepository.save(cdProdTp1);
 
-            CdProdTp clothingType = new CdProdTp();
-            clothingType.setProductTypeName("Clothing");
-            clothingType.setProductDescription("Apparel and fashion items");
-            CdProdTpRepository.save(clothingType);
+            CdProdTp cdProdTp2 = new CdProdTp();
+            cdProdTp2.setProductTypeName("Health & Wellness");
+            cdProdTp2.setProductDescription("Health & Wellness");
+            CdProdTpRepository.save(cdProdTp2);
+            
+            CdProdTp cdProdTp3 = new CdProdTp();
+            cdProdTp3.setProductTypeName("Investment Product");
+            cdProdTp3.setProductDescription("Investment Product");
+            CdProdTpRepository.save(cdProdTp3);
         }
 
         if (productRepository.count() == 0) {
-            CdProdTp electronicsType = CdProdTpRepository.findById(1L).orElseThrow();
-            CdProdTp clothingType = CdProdTpRepository.findById(2L).orElseThrow();
+            CdProdTp cdProdTp1 = CdProdTpRepository.findById(1L).orElseThrow();
+            CdProdTp cdProdTp2 = CdProdTpRepository.findById(2L).orElseThrow();
 
             Product product1 = new Product();
-            product1.setProductName("Laptop");
-            product1.setShortDesc("Powerful and portable computer");
-            product1.setDescription("A high-performance laptop with 16GB RAM and 512GB SSD.");
+            product1.setProductName("Test Product");
+            product1.setShortDesc("Test Product");
+            product1.setDescription("This is a test product");
             product1.setStartDate(LocalDate.now());
             product1.setEndDate(LocalDate.now().plusYears(1));
             product1.setLastUpdatedUser("admin");
             product1.setLastUpdatedDate(LocalDate.now());
-            product1.setProductType(electronicsType);
+            product1.setProductType(cdProdTp1);
             productRepository.save(product1);
 
             Product product2 = new Product();
-            product2.setProductName("T-shirt");
-            product2.setShortDesc("Comfortable cotton t-shirt");
-            product2.setDescription("A 100% cotton t-shirt, available in multiple sizes and colors.");
+            product2.setProductName("Elderly Care Package");
+            product2.setShortDesc("A comprehensive package for senior citizens.");
+            product2.setDescription("Includes at-home medical check-ups, assisted living consultation, "
+            		+ "and a weekly meal delivery service tailored for seniors.");
             product2.setStartDate(LocalDate.now().minusMonths(2));
             product2.setEndDate(LocalDate.now().plusMonths(10));
-            product2.setLastUpdatedUser("user1");
+            product2.setLastUpdatedUser("admin");
             product2.setLastUpdatedDate(LocalDate.now());
-            product2.setProductType(clothingType);
+            product2.setProductType(cdProdTp2);
             productRepository.save(product2);
         }
     }

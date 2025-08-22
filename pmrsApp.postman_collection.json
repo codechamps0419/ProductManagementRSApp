@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "a73758cf-a424-4f5e-8c0f-2a6943536cb1",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27698850"
+	},
+	"item": [
+		{
+			"name": "ProductManagementRSApp",
+			"item": [
+				{
+					"name": "createProduct",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"FPA\",\r\n    \"shortDesc\": \"Fixed Period Annuity\",\r\n    \"description\": \"A Fixed Period Annuity, often referred to as an Annuity Certain, is an annuity whereby a promise is made to pay money out at regular intervals over some specific time period.\",\r\n    \"startDate\": \"2025-08-21\",\r\n    \"endDate\": \"2025-08-21\",\r\n    \"lastUpdatedUser\": \"prodadmin\",\r\n    \"lastUpdatedDate\": \"2025-08-21\",\r\n    \"productType\": {\r\n        \"productTypeId\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Product>\r\n    <productName>F.P.A</productName>\r\n    <shortDesc>Fixed Period Annuity</shortDesc>\r\n    <description>A Fixed Period Annuity, often referred to as an Annuity Certain, is an annuity whereby a promise is made to pay money out at regular intervals over some specific time period.</description>\r\n    <startDate>2025-08-22</startDate>\r\n    <endDate>2099-12-31</endDate>\r\n    <lastUpdatedUser>prodadmin</lastUpdatedUser>\r\n    <productType>\r\n        <productTypeId>3</productTypeId>\r\n    </productType>\r\n</Product>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/product-management-rs/api/products/search?name=FPA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product-management-rs",
+								"api",
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "FPA"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
