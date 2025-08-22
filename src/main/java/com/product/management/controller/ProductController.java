@@ -83,9 +83,7 @@ public class ProductController {
 	}
 
 	/**
-	 * Endpoint to get a paginated and sortable list of products. Example: GET
-	 * /products/paginated?page=0&size=10&sort=productName,asc
-	 * 
+	 * Endpoint to get a paginated and sortable list of products.
 	 * @param pageable Spring automatically creates this from request parameters.
 	 * @return A Page of products with pagination metadata.
 	 */
@@ -94,5 +92,11 @@ public class ProductController {
 			@PageableDefault(sort = "productName") Pageable pageable) {
 		Page<Product> productPage = productService.getProducts(pageable);
 		return ResponseEntity.ok(productPage);
+	}
+	
+	@GetMapping(value = "/active", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<Product>> getActiveProducts() {
+		List<Product> products = productService.activeProducts();
+		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 }

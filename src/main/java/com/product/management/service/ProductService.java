@@ -22,4 +22,6 @@ public interface ProductService {
 	List<Product> searchProducts(String name);
 
 	Page<Product> getProducts(Pageable pageable);
+
+	List<Product> activeProducts();
 }

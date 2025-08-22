@@ -98,5 +98,11 @@ public class ProductServiceImpl implements ProductService{
     public Page<Product> getProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
+    
+    @Override
+    public List<Product> activeProducts()
+    {
+    	return productRepository.findActiveProducts();
+    }
 
 }
