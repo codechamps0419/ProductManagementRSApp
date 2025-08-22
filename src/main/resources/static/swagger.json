@@ -1,0 +1,478 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Product Management API",
+    "description": "API built with Spring Boot and Spring Data JPA. The project demonstrates a comprehensive understanding of modern Java backend development by implementing a RESTful API for managing product data.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Product management operations"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create a new product",
+        "description": "Creates a new product with the provided details.",
+        "requestBody": {
+          "description": "Product object to be created",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get all products",
+        "description": "Retrieves a list of all products.",
+        "responses": {
+          "200": {
+            "description": "List of products retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get a product by ID",
+        "description": "Retrieves a single product by its unique identifier.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to retrieve",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found and returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update an existing product",
+        "description": "Updates a product with the specified ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to update",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Product object with updated information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to invalid input or ID mismatch"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete a product by ID",
+        "description": "Deletes a product with the specified ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the product to delete",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Search products by name",
+        "description": "Searches for products that match a given name.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "Name of the product to search for",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products matching the search query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/paginated": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get a paginated and sortable list of products",
+        "description": "Retrieves a list of products with pagination and sorting options.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (0-based)",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort is 'productName'.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of products retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedProductResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedProductResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/active": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get all active products",
+        "description": "Retrieves a list of all active products.",
+        "responses": {
+          "200": {
+            "description": "List of active products retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique identifier of the product"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Name of the product"
+          },
+          "shortDesc": {
+            "type": "string",
+            "description": "Short description of the product"
+          },
+          "description": {
+            "type": "string",
+            "description": "Full description of the product"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date for the product's validity"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "End date for the product's validity"
+          },
+          "lastUpdatedUser": {
+            "type": "string",
+            "description": "User who last updated the product"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the last update"
+          },
+          "productType": {
+            "$ref": "#/components/schemas/CdProdTp"
+          }
+        }
+      },
+      "CdProdTp": {
+        "type": "object",
+        "properties": {
+          "productTypeId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique identifier for the product type"
+          },
+          "productTypeName": {
+            "type": "string",
+            "description": "Name of the product type"
+          },
+          "productDescription": {
+            "type": "string",
+            "description": "Description of the product type"
+          }
+        }
+      },
+      "PaginatedProductResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "The list of products for the current page",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "pageable": {
+            "type": "object",
+            "properties": {
+              "sort": {
+                "type": "object",
+                "properties": {
+                  "sorted": { "type": "boolean" },
+                  "unsorted": { "type": "boolean" },
+                  "empty": { "type": "boolean" }
+                }
+              },
+              "pageNumber": { "type": "integer" },
+              "pageSize": { "type": "integer" },
+              "paged": { "type": "boolean" },
+              "unpaged": { "type": "boolean" },
+              "offset": { "type": "integer" }
+            }
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages"
+          },
+          "totalElements": {
+            "type": "integer",
+            "description": "Total number of elements across all pages"
+          },
+          "last": {
+            "type": "boolean",
+            "description": "Indicates if the current page is the last one"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "numberOfElements": {
+            "type": "integer"
+          },
+          "first": {
+            "type": "boolean",
+            "description": "Indicates if the current page is the first one"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
